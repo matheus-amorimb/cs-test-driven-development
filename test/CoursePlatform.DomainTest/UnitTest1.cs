@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 namespace CoursePlataform.DomainTest;
 
 public class UnitTest1

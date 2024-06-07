@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/src/CoursePlataform.Domain/CoursePlataform.Domain.csproj",
-      "projectName": "CoursePlataform.Domain",
-      "projectPath": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/src/CoursePlataform.Domain/CoursePlataform.Domain.csproj",
+      "projectUniqueName": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/src/CoursePlatform.Domain/CoursePlatform.Domain.csproj",
+      "projectName": "CoursePlatform.Domain",
+      "projectPath": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/src/CoursePlatform.Domain/CoursePlatform.Domain.csproj",
       "packagesPath": "/home/matheus/.nuget/packages/",
-      "outputPath": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/src/CoursePlataform.Domain/obj/",
+      "outputPath": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/src/CoursePlatform.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/matheus/.nuget/NuGet/NuGet.Config"
