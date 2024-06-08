@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace CoursePlataform.DomainTest.Courses;
 
-public class CourseTest
+public class CourseTest : IDisposable
 {
     private readonly ITestOutputHelper _outputHelper;
     private readonly string _name;
@@ -14,12 +14,17 @@ public class CourseTest
     public CourseTest(ITestOutputHelper outputHelper)
     {
         _outputHelper = outputHelper;
-        _outputHelper.WriteLine("Constructor executing...");
+        _outputHelper.WriteLine("Constructor being executed...");
         
         _name = "Clean Architecture";
         _workload = 24;
         _targetAudience = TargetAudience.Employee;
         _price = 1299;
+    }
+    
+    public void Dispose()
+    {
+        _outputHelper.WriteLine("Disposable being executed...");
     }
 
     [Fact]
@@ -64,7 +69,6 @@ public class CourseTest
         Action action = () => new Course(_name, _workload, _targetAudience, price);
         action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
     }
-    
 }
 
 public enum TargetAudience{
