@@ -1,3 +1,4 @@
+using CoursePlataform.DomainTest.Utilities;
 using FluentAssertions;
 
 namespace CoursePlataform.DomainTest.Courses;
@@ -36,7 +37,7 @@ public class CourseTest
         
         Action action = () => new Course(invalidName, expectedCourse.Workload, expectedCourse.TargetAudience,
             expectedCourse.Price);
-
+        
         action.Should().Throw<ArgumentException>();
     }
 
@@ -54,9 +55,7 @@ public class CourseTest
             Price = 1299,
         };
 
-        Action action = () => new Course(expectedCourse.Name, workLoad, expectedCourse.TargetAudience, expectedCourse.Price);
-
-        action.Should().Throw<ArgumentException>().WithMessage("Course must have at least one hour length");
+        Assert.Throws<ArgumentException>(() => new Course(expectedCourse.Name, workLoad, expectedCourse.TargetAudience, expectedCourse.Price)).WithMessage("Course must have at least one hour length");
     }
     
     [Theory]
