@@ -1,3 +1,4 @@
+using Bogus;
 using CoursePlataform.DomainTest.Builders;
 using CoursePlataform.DomainTest.Utilities;
 using FluentAssertions;
@@ -18,11 +19,12 @@ public class CourseTest : IDisposable
         _outputHelper = outputHelper;
         _outputHelper.WriteLine("Constructor being executed...");
         
-        _name = "Clean Architecture";
-        _workload = 24;
+        var faker = new Faker();
+        _name = faker.Random.Word();
+        _workload = faker.Random.Double(50, 100);
         _targetAudience = TargetAudience.Employee;
-        _price = 1299;
-        _description = "How to create a Web Api using Clean Architecture";
+        _price = faker.Random.Double(100, 1800);
+        _description = faker.Lorem.Paragraph();
     }
     
     public void Dispose()

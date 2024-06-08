@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "44Q8lvQDbXKzFbaWa4TTb04hV6NEb5t8evkM4E0FrQdEk35KEB9c8XJ7nOKEobq7ceEugzTEBGBcYfBJc/KExg==",
+  "dgSpecHash": "vY+IBTKGhZtgRlQchkr/N2BZSrzC3wIMnjx3a+gwafPiFH5skEHfeTibRcEXAnfAekRiWLG3Ph+LnO9Z8AiKlQ==",
   "success": true,
   "projectFilePath": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/test/CoursePlatform.DomainTest/CoursePlatform.DomainTest.csproj",
   "expectedPackageFiles": [
+    "/home/matheus/.nuget/packages/bogus/35.5.1/bogus.35.5.1.nupkg.sha512",
     "/home/matheus/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
     "/home/matheus/.nuget/packages/fluentassertions/6.12.0/fluentassertions.6.12.0.nupkg.sha512",
     "/home/matheus/.nuget/packages/microsoft.codecoverage/17.6.0/microsoft.codecoverage.17.6.0.nupkg.sha512",

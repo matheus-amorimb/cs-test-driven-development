@@ -48,7 +48,6 @@ public class CourseBuilder
     {
         _price = price;
         return this;
-    }   
-    
+    } 
     
 }
