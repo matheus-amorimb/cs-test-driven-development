@@ -7,19 +7,17 @@ public class CourseTest
     [Fact]
     public void MustCreateCourse()
     {
-        //Arrange
         var expectedCourse = new
         {
             Name = "Clean Architecture",
             Workload = 24,
             TargetAudience = TargetAudience.Employee,
             Price = 1299,
+            
         };
         
-        //Action
         var course = new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Price);
         
-        //Assert
         course.Should().BeEquivalentTo(expectedCourse);
     }
 
@@ -41,6 +39,44 @@ public class CourseTest
 
         action.Should().Throw<ArgumentException>();
     }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-2)]
+    [InlineData(-100)]
+    public void CourseMustHaveAtLeastOneHourLength(double workLoad)
+    {
+        var expectedCourse = new
+        {
+            Name = "Clean Architecture",
+            Workload = 60,
+            TargetAudience = TargetAudience.Employee,
+            Price = 1299,
+        };
+
+        Action action = () => new Course(expectedCourse.Name, workLoad, expectedCourse.TargetAudience, expectedCourse.Price);
+
+        action.Should().Throw<ArgumentException>().WithMessage("Course must have at least one hour length");
+    }
+    
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-100)]
+    public void CourseMustNotHaveAPriceLowerThan1(double price)
+    {
+        var expectedCourse = new
+        {
+            Name = "Clean Architecture",
+            Workload = 24,
+            TargetAudience = TargetAudience.Employee,
+            Price = 1299,
+        };
+        
+        Action action = () => new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience,
+            price);
+
+        action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
+    }
     
 }
 
@@ -60,15 +96,27 @@ public class Course
     public Course(string name, double workload, TargetAudience targetAudience, double price)
     {
         Name = CheckName(name);
-        Workload = workload;
+        Workload = CheckWorkLoad(workload);
         TargetAudience = targetAudience;
-        Price = price;
+        Price = CheckPrice(price);
+    }
+
+    private double CheckPrice(double price)
+    {
+        if (price < 1) throw new ArgumentException("Course price must be greater than 1");
+        return price;
+    }
+
+    private double CheckWorkLoad(double workload)
+    {
+        if (workload < 1) throw new ArgumentException("Course must have at least one hour length");
+        return workload;
     }
 
     private string? CheckName(string name)
     {
-        if (name == String.Empty) throw new ArgumentException("Name can not be empty.");
         if (name is null) throw new ArgumentNullException(nameof(name));
+        if (name == String.Empty) throw new ArgumentException("Name can not be empty.");
         return name;
     }
 }
