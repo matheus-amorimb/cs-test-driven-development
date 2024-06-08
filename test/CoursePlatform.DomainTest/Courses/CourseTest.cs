@@ -22,9 +22,11 @@ public class CourseTest
         //Assert
         course.Should().BeEquivalentTo(expectedCourse);
     }
-    
-    [Fact]
-    public void CourseMustNotHaveAEmptyName()
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void CourseMustNotHaveAInvalidName(string invalidName)
     {
         var expectedCourse = new
         {
@@ -34,28 +36,11 @@ public class CourseTest
             Price = 1299,
         };
         
-        Action action = () => new Course(string.Empty, expectedCourse.Workload, expectedCourse.TargetAudience,
+        Action action = () => new Course(invalidName, expectedCourse.Workload, expectedCourse.TargetAudience,
             expectedCourse.Price);
 
         action.Should().Throw<ArgumentException>();
-    }    
-    
-    [Fact]
-    public void CourseMustNotHaveANullName()
-    {
-        var expectedCourse = new
-        {
-            Name = "Clean Architecture",
-            Workload = 24,
-            TargetAudience = TargetAudience.Employee,
-            Price = 1299,
-        };
-        
-        Action action = () => new Course(null, expectedCourse.Workload, expectedCourse.TargetAudience,
-            expectedCourse.Price);
-
-        action.Should().Throw<ArgumentNullException>();
-    }    
+    }
     
 }
 
