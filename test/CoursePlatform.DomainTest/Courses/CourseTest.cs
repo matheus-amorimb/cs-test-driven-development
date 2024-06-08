@@ -1,20 +1,36 @@
 using CoursePlataform.DomainTest.Utilities;
 using FluentAssertions;
+using Xunit.Abstractions;
 
 namespace CoursePlataform.DomainTest.Courses;
 
 public class CourseTest
 {
+    private readonly ITestOutputHelper _outputHelper;
+    private readonly string _name;
+    private readonly double _workload;
+    private readonly TargetAudience _targetAudience;
+    private readonly double _price;
+    public CourseTest(ITestOutputHelper outputHelper)
+    {
+        _outputHelper = outputHelper;
+        _outputHelper.WriteLine("Constructor executing...");
+        
+        _name = "Clean Architecture";
+        _workload = 24;
+        _targetAudience = TargetAudience.Employee;
+        _price = 1299;
+    }
+
     [Fact]
     public void MustCreateCourse()
     {
         var expectedCourse = new
         {
-            Name = "Clean Architecture",
-            Workload = 24,
-            TargetAudience = TargetAudience.Employee,
-            Price = 1299,
-            
+            Name = _name,
+            Workload = _workload,
+            TargetAudience = _targetAudience,
+            Price = _price,
         };
         
         var course = new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Price);
@@ -27,17 +43,7 @@ public class CourseTest
     [InlineData(null)]
     public void CourseMustNotHaveAInvalidName(string invalidName)
     {
-        var expectedCourse = new
-        {
-            Name = "Clean Architecture",
-            Workload = 24,
-            TargetAudience = TargetAudience.Employee,
-            Price = 1299,
-        };
-        
-        Action action = () => new Course(invalidName, expectedCourse.Workload, expectedCourse.TargetAudience,
-            expectedCourse.Price);
-        
+        Action action = () => new Course(invalidName, _workload, _targetAudience, _price);
         action.Should().Throw<ArgumentException>();
     }
 
@@ -47,15 +53,7 @@ public class CourseTest
     [InlineData(-100)]
     public void CourseMustHaveAtLeastOneHourLength(double workLoad)
     {
-        var expectedCourse = new
-        {
-            Name = "Clean Architecture",
-            Workload = 60,
-            TargetAudience = TargetAudience.Employee,
-            Price = 1299,
-        };
-
-        Assert.Throws<ArgumentException>(() => new Course(expectedCourse.Name, workLoad, expectedCourse.TargetAudience, expectedCourse.Price)).WithMessage("Course must have at least one hour length");
+        Assert.Throws<ArgumentException>(() => new Course(_name, workLoad, _targetAudience, _price)).WithMessage("Course must have at least one hour length");
     }
     
     [Theory]
@@ -63,17 +61,7 @@ public class CourseTest
     [InlineData(-100)]
     public void CourseMustNotHaveAPriceLowerThan1(double price)
     {
-        var expectedCourse = new
-        {
-            Name = "Clean Architecture",
-            Workload = 24,
-            TargetAudience = TargetAudience.Employee,
-            Price = 1299,
-        };
-        
-        Action action = () => new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience,
-            price);
-
+        Action action = () => new Course(_name, _workload, _targetAudience, price);
         action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
     }
     

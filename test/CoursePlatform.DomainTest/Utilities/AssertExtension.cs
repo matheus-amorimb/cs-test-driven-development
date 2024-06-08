@@ -8,7 +8,10 @@ public static class AssertExtension
         {
             Assert.True(true);
         }
+        else
+        {
+            Assert.False(true);
+        }
         
-        Assert.False(true);
     }
 }
