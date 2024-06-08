@@ -23,6 +23,40 @@ public class CourseTest
         course.Should().BeEquivalentTo(expectedCourse);
     }
     
+    [Fact]
+    public void CourseMustNotHaveAEmptyName()
+    {
+        var expectedCourse = new
+        {
+            Name = "Clean Architecture",
+            Workload = 24,
+            TargetAudience = TargetAudience.Employee,
+            Price = 1299,
+        };
+        
+        Action action = () => new Course(string.Empty, expectedCourse.Workload, expectedCourse.TargetAudience,
+            expectedCourse.Price);
+
+        action.Should().Throw<ArgumentException>();
+    }    
+    
+    [Fact]
+    public void CourseMustNotHaveANullName()
+    {
+        var expectedCourse = new
+        {
+            Name = "Clean Architecture",
+            Workload = 24,
+            TargetAudience = TargetAudience.Employee,
+            Price = 1299,
+        };
+        
+        Action action = () => new Course(null, expectedCourse.Workload, expectedCourse.TargetAudience,
+            expectedCourse.Price);
+
+        action.Should().Throw<ArgumentNullException>();
+    }    
+    
 }
 
 public enum TargetAudience{
@@ -40,9 +74,16 @@ public class Course
     public double Price { get; private set; }
     public Course(string name, double workload, TargetAudience targetAudience, double price)
     {
-        Name = name;
+        Name = CheckName(name);
         Workload = workload;
         TargetAudience = targetAudience;
         Price = price;
+    }
+
+    private string? CheckName(string name)
+    {
+        if (name == String.Empty) throw new ArgumentException("Name can not be empty.");
+        if (name is null) throw new ArgumentNullException(nameof(name));
+        return name;
     }
 }
