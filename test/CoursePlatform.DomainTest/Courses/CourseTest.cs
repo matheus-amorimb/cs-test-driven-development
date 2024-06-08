@@ -1,3 +1,4 @@
+using CoursePlataform.DomainTest.Builders;
 using CoursePlataform.DomainTest.Utilities;
 using FluentAssertions;
 using Xunit.Abstractions;
@@ -11,6 +12,7 @@ public class CourseTest : IDisposable
     private readonly double _workload;
     private readonly TargetAudience _targetAudience;
     private readonly double _price;
+    private readonly string _description;
     public CourseTest(ITestOutputHelper outputHelper)
     {
         _outputHelper = outputHelper;
@@ -20,6 +22,7 @@ public class CourseTest : IDisposable
         _workload = 24;
         _targetAudience = TargetAudience.Employee;
         _price = 1299;
+        _description = "How to create a Web Api using Clean Architecture";
     }
     
     public void Dispose()
@@ -36,9 +39,10 @@ public class CourseTest : IDisposable
             Workload = _workload,
             TargetAudience = _targetAudience,
             Price = _price,
+            Description = _description,
         };
         
-        var course = new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Price);
+        var course = new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Price, expectedCourse.Description);
         
         course.Should().BeEquivalentTo(expectedCourse);
     }
@@ -48,7 +52,7 @@ public class CourseTest : IDisposable
     [InlineData(null)]
     public void CourseMustNotHaveAInvalidName(string invalidName)
     {
-        Action action = () => new Course(invalidName, _workload, _targetAudience, _price);
+        Action action = () => CourseBuilder.New().WithName(invalidName).Build();
         action.Should().Throw<ArgumentException>();
     }
 
@@ -56,17 +60,17 @@ public class CourseTest : IDisposable
     [InlineData(0)]
     [InlineData(-2)]
     [InlineData(-100)]
-    public void CourseMustHaveAtLeastOneHourLength(double workLoad)
+    public void CourseMustHaveAtLeastOneHourLength(double invalidWorkload)
     {
-        Assert.Throws<ArgumentException>(() => new Course(_name, workLoad, _targetAudience, _price)).WithMessage("Course must have at least one hour length");
+        Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithWorkload(invalidWorkload).Build()).WithMessage("Course must have at least one hour length");
     }
     
     [Theory]
     [InlineData(0)]
     [InlineData(-100)]
-    public void CourseMustNotHaveAPriceLowerThan1(double price)
+    public void CourseMustNotHaveAPriceLowerThan1(double invalidPrice)
     {
-        Action action = () => new Course(_name, _workload, _targetAudience, price);
+        Action action = () => CourseBuilder.New().WithPrice(invalidPrice).Build();
         action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
     }
 }
@@ -84,12 +88,14 @@ public class Course
     public double Workload { get; private set; }
     public TargetAudience TargetAudience { get; private set; }
     public double Price { get; private set; }
-    public Course(string name, double workload, TargetAudience targetAudience, double price)
+    public string Description { get; private set; }
+    public Course(string name, double workload, TargetAudience targetAudience, double price, string description)
     {
         Name = CheckName(name);
         Workload = CheckWorkLoad(workload);
         TargetAudience = targetAudience;
         Price = CheckPrice(price);
+        Description = description;
     }
 
     private double CheckPrice(double price)
