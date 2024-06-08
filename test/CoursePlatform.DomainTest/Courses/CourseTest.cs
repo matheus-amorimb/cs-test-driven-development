@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 namespace CoursePlataform.DomainTest.Courses;
 
 public class CourseTest
@@ -6,30 +8,37 @@ public class CourseTest
     public void MustCreateCourse()
     {
         //Arrange
-        const string name = "Clean Architecture";
-        const double workload = 24;
-        const string targetAudience = "Software developers";
-        const double price = 1299;
+        var expectedCourse = new
+        {
+            Name = "Clean Architecture",
+            Workload = 24,
+            TargetAudience = TargetAudience.Employee,
+            Price = 1299,
+        };
         
         //Action
-        var course = new Course(name, workload, targetAudience, price);
+        var course = new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Price);
         
         //Assert
-        Assert.Equal(name, course.Name);
-        Assert.Equal(workload, course.Workload);
-        Assert.Equal(targetAudience, course.TargetAudience);
-        Assert.Equal(price, course.Price);
+        course.Should().BeEquivalentTo(expectedCourse);
     }
     
+}
+
+public enum TargetAudience{
+    Student,
+    Undergraduate,
+    Employee,
+    Entrepreneur
 }
 
 public class Course
 {
     public string Name { get; private set; }
     public double Workload { get; private set; }
-    public string TargetAudience { get; private set; }
+    public TargetAudience TargetAudience { get; private set; }
     public double Price { get; private set; }
-    public Course(string name, double workload, string targetAudience, double price)
+    public Course(string name, double workload, TargetAudience targetAudience, double price)
     {
         Name = name;
         Workload = workload;
