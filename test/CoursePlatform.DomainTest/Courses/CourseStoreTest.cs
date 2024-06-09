@@ -1,5 +1,6 @@
 using Bogus.DataSets;
 using CoursePlataform.Domain.Courses;
+using Moq;
 
 namespace CoursePlataform.DomainTest.Courses;
 
@@ -17,19 +18,32 @@ public class CourseStoreTest
             Price = 1299,
         };
 
-        var courseStorage = new CourseStorage();
+        var courseRepositoryMock = new Mock<ICourseRepository>();
+        
+        var courseStorage = new CourseStorage(courseRepositoryMock.Object);
 
         courseStorage.Add(courseDto);
+        
+        courseRepositoryMock.Verify(r => r.Add(It.Is<Course>(c => c.Name == courseDto.Name)));
     }
 }
-
+ 
 public class CourseStorage
 {
+    private readonly ICourseRepository _courseRepository;
+
+    public CourseStorage(ICourseRepository courseRepository)
+    {
+        _courseRepository = courseRepository;
+    }
+
     public void Add(CourseDto courseDto)
     {
-        throw new System.NotImplementedException();
+        var course = new Course(courseDto.Name, courseDto.Workload, courseDto.TargetAudience, courseDto.Price,
+            courseDto.Description);
+        _courseRepository.Add(course);
     }
-}
+} 
 
 public interface ICourseRepository
 {
