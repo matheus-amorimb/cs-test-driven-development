@@ -1,3 +1,4 @@
+using CoursePlataform.Domain.Courses;
 using CoursePlataform.DomainTest.Courses;
 
 namespace CoursePlataform.DomainTest.Builders;

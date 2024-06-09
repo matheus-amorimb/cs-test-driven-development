@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vY+IBTKGhZtgRlQchkr/N2BZSrzC3wIMnjx3a+gwafPiFH5skEHfeTibRcEXAnfAekRiWLG3Ph+LnO9Z8AiKlQ==",
+  "dgSpecHash": "1fH+sMca+j9Q9DspZss5Sl/0Nyp5g2c1YG8SnYDrgFO3Xf6B2AiWppvTkCjIoWOTJWJgB6cyymY2cPLBfgK67A==",
   "success": true,
   "projectFilePath": "/home/matheus/matheus-dev/code/cs/cs-test-driven-development/test/CoursePlatform.DomainTest/CoursePlatform.DomainTest.csproj",
   "expectedPackageFiles": [
