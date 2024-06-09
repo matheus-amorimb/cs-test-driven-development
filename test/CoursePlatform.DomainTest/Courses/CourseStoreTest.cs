@@ -1,6 +1,7 @@
 using Bogus;
 using Bogus.DataSets;
 using CoursePlataform.Domain.Courses;
+using CoursePlataform.DomainTest.Builders;
 using FluentAssertions;
 using Moq;
 
@@ -48,40 +49,14 @@ public class CourseStoreTest
         Action action = () => _courseStorage.Add(_courseDto);
         action.Should().Throw<ArgumentException>().WithMessage("Target audience invalid.");
     }
-}
 
-public class CourseStorage
-{
-    private readonly ICourseRepository _courseRepository;
-
-    public CourseStorage(ICourseRepository courseRepository)
+    [Fact]
+    public void MustNotAddACourseWithNameAlreadyAdded()
     {
-        _courseRepository = courseRepository;
-    }
-
-    public void Add(CourseDto courseDto)
-    {
-        bool tryParse = Enum.TryParse<TargetAudience>(courseDto.TargetAudience, out var targetAudience);
-
-        if (!tryParse) throw new ArgumentException("Target audience invalid.");
-
-        var course = new Course(courseDto.Name, courseDto.Workload, targetAudience, courseDto.Price,
-            courseDto.Description);
+        var courseAlreadySaved = CourseBuilder.New().WithName(_courseDto.Name).Build();
+        _courseRepositoryMock.Setup(r => r.GetByName(_courseDto.Name)).Returns(courseAlreadySaved);
         
-        _courseRepository.Add(course);
+        Action action = () => _courseStorage.Add(_courseDto);
+        action.Should().Throw<ArgumentException>().WithMessage("Course name already in use.");
     }
-} 
-
-public interface ICourseRepository
-{
-    void Add(Course course);
-}
-
-public class CourseDto
-{    
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public double Workload { get; set; }
-    public string? TargetAudience { get; set; }
-    public double Price { get; set; }
 }
