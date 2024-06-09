@@ -7,7 +7,7 @@ public class Course
     public TargetAudience TargetAudience { get; private set; }
     public double Price { get; private set; }
     public string? Description { get; private set; }
-    public Course(string name, double workload, TargetAudience targetAudience, double price, string description)
+    public Course(string? name, double workload, TargetAudience targetAudience, double price, string? description)
     {
         Name = CheckName(name);
         Workload = CheckWorkLoad(workload);
@@ -28,7 +28,7 @@ public class Course
         return workload;
     }
 
-    private string? CheckName(string name)
+    private string? CheckName(string? name)
     {
         if (name is null) throw new ArgumentNullException(nameof(name));
         if (name == String.Empty) throw new ArgumentException("Name can not be empty.");

@@ -5,11 +5,11 @@ namespace CoursePlataform.DomainTest.Builders;
 
 public class CourseBuilder
 {
-    private string _name = "Clean Architecture";
+    private string? _name = "Clean Architecture";
     private double _workload = 24;
     private TargetAudience _targetAudience = TargetAudience.Employee;
     private double  _price = 1299;
-    private string  _description = "How to create a Web Api using Clean Architecture";
+    private string?  _description = "How to create a Web Api using Clean Architecture";
     
     public static CourseBuilder New()
     {
@@ -21,13 +21,13 @@ public class CourseBuilder
         return new Course(_name, _workload, _targetAudience, _price, _description);
     }
     
-    public CourseBuilder WithName(string name)
+    public CourseBuilder WithName(string? name)
     {
         _name = name;
         return this;
     }    
     
-    public CourseBuilder WithDescription(string description)
+    public CourseBuilder WithDescription(string? description)
     {
         _description = description;
         return this;

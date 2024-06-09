@@ -53,7 +53,7 @@ public class CourseTest : IDisposable
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public void CourseMustNotHaveAInvalidName(string invalidName)
+    public void CourseMustNotHaveAInvalidName(string? invalidName)
     {
         Action action = () => CourseBuilder.New().WithName(invalidName).Build();
         action.Should().Throw<ArgumentException>();
