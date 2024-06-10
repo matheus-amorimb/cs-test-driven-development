@@ -2,9 +2,9 @@ namespace CoursePlataform.DomainTest.Courses;
 
 public record CourseDto
 {    
-    public string? Name { get; init; }
-    public string? Description { get; init; }
-    public double Workload { get; init; }
-    public string? TargetAudience { get; init; }
-    public double Price { get; init; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public double Workload { get; set; }
+    public string? TargetAudience { get; set; }
+    public double Price { get; set; }
 }
