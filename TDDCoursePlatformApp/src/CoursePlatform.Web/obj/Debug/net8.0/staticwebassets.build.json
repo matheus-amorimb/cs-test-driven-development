@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "w93S9OU3cAG4S5VRxxKfFxNezrHYK1X3l8Ay3NZCl8c=",
+  "Source": "CoursePlatform.Web",
+  "BasePath": "_content/CoursePlatform.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
