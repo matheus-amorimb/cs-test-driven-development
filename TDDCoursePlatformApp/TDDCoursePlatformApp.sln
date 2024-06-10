@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.DomainTest", "..\test\CoursePlatform.DomainTest\CoursePlatform.DomainTest.csproj", "{51E1CF3F-0DAA-46EC-A27A-C77D647B18A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.DomainTest", "test\CoursePlatform.DomainTest\CoursePlatform.DomainTest.csproj", "{51E1CF3F-0DAA-46EC-A27A-C77D647B18A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Domain", "..\src\CoursePlatform.Domain\CoursePlatform.Domain.csproj", "{799A456D-6C97-45D0-9913-4519C3E2D1A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Domain", "src\CoursePlatform.Domain\CoursePlatform.Domain.csproj", "{799A456D-6C97-45D0-9913-4519C3E2D1A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Web", "CoursePlatform.Web\CoursePlatform.Web.csproj", "{85A9CEE4-5B1A-4889-A19F-FFE6CCC6F182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Web", "src\CoursePlatform.Web\CoursePlatform.Web.csproj", "{85A9CEE4-5B1A-4889-A19F-FFE6CCC6F182}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Data", "CoursePlatform.Data\CoursePlatform.Data.csproj", "{16D6759B-BC3F-4C02-BF3E-123D61E9F10B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Data", "src\CoursePlatform.Data\CoursePlatform.Data.csproj", "{16D6759B-BC3F-4C02-BF3E-123D61E9F10B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Ioc", "CoursePlatform.Ioc\CoursePlatform.Ioc.csproj", "{6372C694-FD31-4DEB-9089-3272A453855C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursePlatform.Ioc", "src\CoursePlatform.Ioc\CoursePlatform.Ioc.csproj", "{6372C694-FD31-4DEB-9089-3272A453855C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
