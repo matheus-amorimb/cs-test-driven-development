@@ -1,6 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using CoursePlataform.Domain.Base;
+
 namespace CoursePlataform.Domain.Courses;
 
-public class Course
+[Table("course")]
+public class Course : Entity
 {
     public string? Name { get; private set; }
     public double Workload { get; private set; }
