@@ -1,9 +1,9 @@
 using CoursePlataform.Domain.Courses;
+using CoursePlatform.Data.Repositories.Interfaces;
 
 namespace CoursePlataform.DomainTest.Courses;
 
-public interface ICourseRepository
+public interface ICourseRepository : IRepository<Course>
 {
-    void Add(Course course);
-    Course GetByName(string? name);
+    Course? GetByName(string? name);
 }
