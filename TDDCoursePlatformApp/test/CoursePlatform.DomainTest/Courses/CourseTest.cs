@@ -76,4 +76,37 @@ public class CourseTest : IDisposable
         Action action = () => CourseBuilder.New().WithPrice(invalidPrice).Build();
         action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
     }
+
+    [Fact]
+    public void MustChangeName()
+    {
+        var expectedName = "Pedro";
+        var course = CourseBuilder.New().Build();
+
+        course.ChangeName(expectedName);
+
+        course.Name.Should().Be(expectedName);
+    }
+    
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void CourseNameMustNotBeChangedWithAnInvalidName(string invalidName)
+    {
+        Action action = () => CourseBuilder.New().Build().ChangeName(invalidName);
+        action.Should().Throw<ArgumentException>();
+    }
+    
+    [Fact]
+    public void MustChangeWorkLoad()
+    {
+        var expectedWorkLoad = 55;
+        var course = CourseBuilder.New().Build();
+
+        course.ChangeWorkLoad(expectedWorkLoad);
+
+        course.Workload.Should().Be(expectedWorkLoad);
+    }
+    
+    
 }

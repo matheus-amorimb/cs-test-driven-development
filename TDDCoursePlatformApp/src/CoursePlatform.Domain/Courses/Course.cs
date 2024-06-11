@@ -20,6 +20,15 @@ public class Course : Entity
         Description = description;
     }
 
+    public void ChangeName(string name)
+    {
+        this.Name = CheckName(name);
+    }
+    public void ChangeWorkLoad(double workLoad)
+    {
+        this.Workload = workLoad;
+    }
+    
     private double CheckPrice(double price)
     {
         if (price < 1) throw new ArgumentException("Course price must be greater than 1");
