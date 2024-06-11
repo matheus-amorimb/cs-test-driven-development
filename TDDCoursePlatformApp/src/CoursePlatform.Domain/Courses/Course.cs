@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using CoursePlataform.Domain.Base;
+using CoursePlataform.Domain.Utilities;
 
 namespace CoursePlataform.Domain.Courses;
 
@@ -37,20 +38,20 @@ public class Course : Entity
     
     private double CheckPrice(double price)
     {
-        if (price < 1) throw new ArgumentException("Course price must be greater than 1");
+        if (price < 1) throw new ArgumentException(Resource.InvalidPrice);
         return price;
     }
 
     private double CheckWorkload(double workload)
     {
-        if (workload < 1) throw new ArgumentException("Course must have at least one hour length");
+        if (workload < 1) throw new ArgumentException(Resource.InvalidWorkload);
         return workload;
     }
 
     private string? CheckName(string? name)
     {
         if (name is null) throw new ArgumentNullException(nameof(name));
-        if (name == String.Empty) throw new ArgumentException("Name can not be empty.");
+        if (name == String.Empty) throw new ArgumentException(Resource.InvalidName);
         return name;
     }
 }

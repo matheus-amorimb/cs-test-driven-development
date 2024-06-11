@@ -1,5 +1,6 @@
 using Bogus;
 using CoursePlataform.Domain.Courses;
+using CoursePlataform.Domain.Utilities;
 using CoursePlataform.DomainTest.Builders;
 using CoursePlataform.DomainTest.Utilities;
 using FluentAssertions;
@@ -66,7 +67,7 @@ public class CourseTest : IDisposable
     [InlineData(-100)]
     public void CourseMustHaveAtLeastOneHourLength(double invalidWorkload)
     {
-        Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithWorkload(invalidWorkload).Build()).WithMessage("Course must have at least one hour length");
+        Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithWorkload(invalidWorkload).Build()).WithMessage(Resource.InvalidWorkload);
     }
     
     [Theory]
@@ -75,7 +76,7 @@ public class CourseTest : IDisposable
     public void CourseMustNotHaveAPriceLowerThan1(double invalidPrice)
     {
         Action action = () => CourseBuilder.New().WithPrice(invalidPrice).Build();
-        action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
+        action.Should().Throw<ArgumentException>().WithMessage(Resource.InvalidPrice);
     }
 
     [Fact]
