@@ -18,7 +18,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<IEnumerable<T>> GetAll()
     {
-        return await Context.Set<T>().ToListAsync();
+        return await Context.Set<T>().AsNoTracking().ToListAsync();
     }
 
     public async Task<T?> GetById(Expression<Func<T, bool>> expression)
