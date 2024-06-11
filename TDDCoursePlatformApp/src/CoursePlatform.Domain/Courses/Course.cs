@@ -14,19 +14,34 @@ public class Course : Entity
     public Course(string? name, double workload, TargetAudience targetAudience, double price, string? description)
     {
         Name = CheckName(name);
-        Workload = CheckWorkLoad(workload);
+        Workload = CheckWorkload(workload);
         TargetAudience = targetAudience;
         Price = CheckPrice(price);
         Description = description;
     }
+    
+    public void ChangeName(string name)
+    {
+        this.Name = CheckName(name);
+    }
 
+    public void ChangeWorkload(double workload)
+    {
+        this.Workload = CheckWorkload(workload);
+    }
+
+    public void ChangePrice(double price)
+    {
+        this.Price = CheckPrice(price);
+    }
+    
     private double CheckPrice(double price)
     {
         if (price < 1) throw new ArgumentException("Course price must be greater than 1");
         return price;
     }
 
-    private double CheckWorkLoad(double workload)
+    private double CheckWorkload(double workload)
     {
         if (workload < 1) throw new ArgumentException("Course must have at least one hour length");
         return workload;

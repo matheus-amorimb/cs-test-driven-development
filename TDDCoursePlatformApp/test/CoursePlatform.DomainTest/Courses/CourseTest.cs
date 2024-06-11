@@ -15,17 +15,18 @@ public class CourseTest : IDisposable
     private readonly TargetAudience _targetAudience;
     private readonly double _price;
     private readonly string _description;
+    private readonly Faker _faker;
     public CourseTest(ITestOutputHelper outputHelper)
     {
         _outputHelper = outputHelper;
         _outputHelper.WriteLine("Constructor being executed...");
         
-        var faker = new Faker();
-        _name = faker.Random.Word();
-        _workload = faker.Random.Double(50, 100);
+        _faker = new Faker();
+        _name = _faker.Random.Word();
+        _workload = _faker.Random.Double(50, 100);
         _targetAudience = TargetAudience.Employee;
-        _price = faker.Random.Double(100, 1800);
-        _description = faker.Lorem.Paragraph();
+        _price = _faker.Random.Double(100, 1800);
+        _description = _faker.Lorem.Paragraph();
     }
     
     public void Dispose()
@@ -75,5 +76,66 @@ public class CourseTest : IDisposable
     {
         Action action = () => CourseBuilder.New().WithPrice(invalidPrice).Build();
         action.Should().Throw<ArgumentException>().WithMessage("Course price must be greater than 1");
+    }
+
+    [Fact]
+    public void MustChangeCourseName()
+    {
+        var expectedName = _faker.Name.ToString();
+        var course = CourseBuilder.New().Build();
+
+        course.ChangeName(expectedName);
+
+        course.Name.Should().Be(expectedName);
+    }
+    
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void CourseMustNotChangeWithAnInvalidName(string invalidName)
+    {
+        Action action = () => CourseBuilder.New().Build().ChangeName(invalidName);
+        action.Should().Throw<ArgumentException>();
+    }
+    
+    [Fact]
+    public void MustChangeCourseWorkload()
+    {
+        var expectedWorkload = 55;
+        var course = CourseBuilder.New().Build();
+
+        course.ChangeWorkload(expectedWorkload);
+
+        course.Workload.Should().Be(expectedWorkload);
+    }
+    
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-2)]
+    [InlineData(-100)]
+    public void CourseMustNotChangeWithAnInvalidWorkload(double invalidWorkload)
+    {
+        Action action = () => CourseBuilder.New().Build().ChangeWorkload(invalidWorkload);
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void MustChangeCoursePrice()
+    {
+        var expectedPrice = 1599;
+        var course = CourseBuilder.New().Build();
+
+        course.ChangePrice(expectedPrice);
+
+        course.Price.Should().Be(expectedPrice);
+    }
+    
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-100)]
+    public void CourseMustNotChangeWithAnInvalidPrice(double invalidPrice)
+    {
+        Action action = () => CourseBuilder.New().Build().ChangePrice(invalidPrice);
+        action.Should().Throw<ArgumentException>();
     }
 }
