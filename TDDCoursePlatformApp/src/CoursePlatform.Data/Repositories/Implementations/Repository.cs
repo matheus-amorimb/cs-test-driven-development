@@ -32,7 +32,7 @@ public class Repository<T> : IRepository<T> where T : Entity
         return entity;
     }
 
-    public T Update(T entity)
+    public async Task<T> Update(T entity)
     {
         Context.Set<T>().Update(entity);
         return entity;
