@@ -35,21 +35,21 @@ public class CourseStorage
         return targetAudience;
     }
 
-    public async void Update(CourseEditDto courseEditDto)
+    public async Task Update(Guid id, CourseDto courseDto)
     {
-        var course = await _courseRepository.GetById(courseEditDto.Id);
+        var course = await _courseRepository.GetById(id);
 
         if (course == null)
         {
             throw new ArgumentException();
         }
         
-        TargetAudience targetAudience = CheckTargetAudience(courseEditDto.TargetAudience);
+        TargetAudience targetAudience = CheckTargetAudience(courseDto.TargetAudience);
         
-        course.ChangeName(courseEditDto.Name);
-        course.ChangePrice(courseEditDto.Price);
-        course.ChangeWorkload(courseEditDto.Workload);
+        course.ChangeName(courseDto.Name);
+        course.ChangePrice(courseDto.Price);
+        course.ChangeWorkload(courseDto.Workload);
         
-        _courseRepository.Update(course);
+        await _courseRepository.Update(course);
     }
 }

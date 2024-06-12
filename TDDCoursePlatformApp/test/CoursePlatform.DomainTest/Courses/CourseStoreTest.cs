@@ -75,13 +75,25 @@ public class CourseStoreTest
     public void MustEditCourseData()
     {
         var course = CourseBuilder.New().Build();
-        _courseRepositoryMock.Setup(r => r.GetById(_courseEditDto.Id)).ReturnsAsync(course);
+        var id = Guid.NewGuid();
+        _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
 
-        _courseStorage.Update(_courseEditDto);
+        _courseStorage.Update(id, _courseDto);
         
-        course.Name.Should().Be(_courseEditDto.Name);
-        course.Price.Should().Be(_courseEditDto.Price);
-        course.Workload.Should().Be(_courseEditDto.Workload);
+        course.Name.Should().Be(_courseDto.Name);
+        course.Price.Should().Be(_courseDto.Price);
+        course.Workload.Should().Be(_courseDto.Workload);
     }    
+    
+    [Fact]
+    public void MustNotAddACourseWithNonexistId()
+    {
+        Course course = null;
+        var id = Guid.NewGuid();
+        _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
+        
+        Action action = () => _courseStorage.Update(id, _courseDto);
+        action.Should().Throw<ArgumentException>();
+    }
     
 }
