@@ -1,6 +1,7 @@
 using Bogus;
 using Bogus.DataSets;
 using CoursePlataform.Domain.Courses;
+using CoursePlataform.Domain.Utilities;
 using CoursePlataform.DomainTest.Builders;
 using FluentAssertions;
 using Moq;
@@ -10,6 +11,7 @@ namespace CoursePlataform.DomainTest.Courses;
 public class CourseStoreTest
 {
     private readonly CourseDto _courseDto;
+    private readonly CourseEditDto _courseEditDto;
     private readonly CourseStorage _courseStorage;
     private readonly Mock<ICourseRepository> _courseRepositoryMock;
 
@@ -18,6 +20,15 @@ public class CourseStoreTest
         var fake = new Faker();
         _courseDto = new CourseDto
         {
+            Name = fake.Random.Words(),
+            Description = fake.Lorem.Paragraph(),
+            Workload = fake.Random.Double(1, 50),
+            TargetAudience = "Employee",
+            Price = fake.Random.Double(1, 12000),
+        };
+        _courseEditDto = new CourseEditDto()
+        {
+            Id = fake.Random.Guid(),
             Name = fake.Random.Words(),
             Description = fake.Lorem.Paragraph(),
             Workload = fake.Random.Double(1, 50),
@@ -47,7 +58,7 @@ public class CourseStoreTest
         _courseDto.TargetAudience = "Doctor";
 
         Action action = () => _courseStorage.Add(_courseDto);
-        action.Should().Throw<ArgumentException>().WithMessage("Target audience invalid.");
+        action.Should().Throw<ArgumentException>().WithMessage(Resource.TargetAudienceInvalid);
     }
 
     [Fact]
@@ -57,6 +68,20 @@ public class CourseStoreTest
         _courseRepositoryMock.Setup(r => r.GetByName(_courseDto.Name)).Returns(courseAlreadySaved);
         
         Action action = () => _courseStorage.Add(_courseDto);
-        action.Should().Throw<ArgumentException>().WithMessage("Course name already in use.");
+        action.Should().Throw<ArgumentException>().WithMessage(Resource.NameAlreadyInUse);
     }
+
+    [Fact]
+    public void MustEditCourseData()
+    {
+        var course = CourseBuilder.New().Build();
+        _courseRepositoryMock.Setup(r => r.GetById(_courseEditDto.Id)).ReturnsAsync(course);
+
+        _courseStorage.Update(_courseEditDto);
+        
+        course.Name.Should().Be(_courseEditDto.Name);
+        course.Price.Should().Be(_courseEditDto.Price);
+        course.Workload.Should().Be(_courseEditDto.Workload);
+    }    
+    
 }

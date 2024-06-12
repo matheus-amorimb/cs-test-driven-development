@@ -21,9 +21,9 @@ public class Repository<T> : IRepository<T> where T : Entity
         return await Context.Set<T>().AsNoTracking().ToListAsync();
     }
 
-    public async Task<T?> GetById(Expression<Func<T, bool>> expression)
+    public async Task<T?> GetById(Guid id)
     {
-        return await Context.Set<T>().FirstOrDefaultAsync(expression);
+        return await Context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<T> Add(T entity)
