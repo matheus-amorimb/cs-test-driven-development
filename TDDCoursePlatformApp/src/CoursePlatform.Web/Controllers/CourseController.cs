@@ -44,4 +44,13 @@ public class CourseController : ControllerBase
 
         return Ok(coursesDto);
     }
+
+    [HttpPost]
+    [Route("edit/{id:guid}")]
+    public async Task<ActionResult<CourseEditDto>> Edit(Guid id, CourseDto courseDto)
+    {
+        await _courseStorage.Update(id, courseDto);
+
+        return Ok(courseDto);
+    } 
 }
