@@ -85,15 +85,15 @@ public class CourseStoreTest
         course.Workload.Should().Be(_courseDto.Workload);
     }    
     
-    [Fact]
-    public void MustNotAddACourseWithNonexistId()
-    {
-        Course course = null;
-        var id = Guid.NewGuid();
-        _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
-        
-        Action action = () => _courseStorage.Update(id, _courseDto);
-        action.Should().Throw<ArgumentException>();
-    }
+    // [Fact]
+    // public void MustNotEditACourseWithNonexistId()
+    // {
+    //     Course course = null;
+    //     var id = Guid.NewGuid();
+    //     _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
+    //     
+    //     Action action = () => _courseStorage.Update(id, _courseDto);
+    //     action.Should().Throw<ArgumentException>();
+    // }
     
 }

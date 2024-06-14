@@ -8,4 +8,6 @@ public static class Resource
     public static readonly string NameAlreadyInUse = "Course name already in use";
     public static readonly string TargetAudienceInvalid = "Target audience invalid";
     public static readonly string CourseNotFound = "Course not found";
+    public static readonly string InvalidCpf = "Cpf must contain 11 digits";
+    public static readonly string InvalidEmail = "Invalid email";
 }

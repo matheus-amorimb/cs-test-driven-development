@@ -10,7 +10,8 @@ public class CourseBuilder
     private TargetAudience _targetAudience = TargetAudience.Employee;
     private double  _price = 1299;
     private string?  _description = "How to create a Web Api using Clean Architecture";
-    
+    private Guid _id;
+
     public static CourseBuilder New()
     {
         return new CourseBuilder();
@@ -42,6 +43,12 @@ public class CourseBuilder
     public CourseBuilder WithTargetAudience(TargetAudience targetAudience)
     {
         _targetAudience = targetAudience;
+        return this;
+    }
+
+    public CourseBuilder WithId(Guid id)
+    {
+        _id = id;
         return this;
     }
     
