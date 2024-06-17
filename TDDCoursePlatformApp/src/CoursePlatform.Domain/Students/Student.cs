@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 using CoursePlataform.Domain.Base;
 using CoursePlataform.Domain.Courses;
@@ -6,11 +7,12 @@ using CoursePlataform.Domain.Utilities;
 
 namespace CoursePlataform.Domain.Students;
 
+[Table("student")]
 public class Student : Entity
 {
     public string? Name { get; private set; }
-    public string Cpf { get; private set; }
-    public string Email { get; private set; }
+    public string? Cpf { get; private set; }
+    public string? Email { get; private set; }
     public TargetAudience TargetAudience { get; private set; }
 
     public Student(string name, string cpf, string email, TargetAudience targetAudience)
