@@ -40,7 +40,7 @@ public class CourseStoreTest
     }
 
     [Fact]
-    public void MustAddCourse()
+    public void Add_CourseSuccessfully()
     {
         _courseStorage.Add(_courseDto);
         
@@ -53,7 +53,7 @@ public class CourseStoreTest
     }
 
     [Fact]
-    public void MustInformAValidTargetAudience()
+    public void Add_InvalidTargetAudience_ThrowsArgumentException()
     {
         _courseDto.TargetAudience = "Doctor";
 
@@ -62,7 +62,7 @@ public class CourseStoreTest
     }
 
     [Fact]
-    public void MustNotAddACourseWithNameAlreadyAdded()
+    public void Add_DuplicateCourseName_ThrowsArgumentException()
     {
         var courseAlreadySaved = CourseBuilder.New().WithName(_courseDto.Name).Build();
         _courseRepositoryMock.Setup(r => r.GetByName(_courseDto.Name)).Returns(courseAlreadySaved);
@@ -72,7 +72,7 @@ public class CourseStoreTest
     }
 
     [Fact]
-    public void MustEditCourseData()
+    public void Update_CourseSuccessfully()
     {
         var course = CourseBuilder.New().Build();
         var id = Guid.NewGuid();
@@ -86,7 +86,7 @@ public class CourseStoreTest
     }    
     
     // [Fact]
-    // public void MustNotEditACourseWithNonexistId()
+    // public void Update_NonexistentCourseId_ThrowsArgumentException()
     // {
     //     Course course = null;
     //     var id = Guid.NewGuid();

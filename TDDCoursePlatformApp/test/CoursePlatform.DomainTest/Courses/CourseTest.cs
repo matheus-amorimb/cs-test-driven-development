@@ -36,7 +36,7 @@ public class CourseTest : IDisposable
     }
 
     [Fact]
-    public void MustCreateCourse()
+    public void Constructor_ShouldCreateCourse()
     {
         var expectedCourse = new
         {
@@ -55,7 +55,7 @@ public class CourseTest : IDisposable
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public void CourseMustNotHaveAInvalidName(string? invalidName)
+    public void Course_InvalidName_ShouldThrowArgumentException(string? invalidName)
     {
         Action action = () => CourseBuilder.New().WithName(invalidName).Build();
         action.Should().Throw<ArgumentException>();
@@ -65,7 +65,7 @@ public class CourseTest : IDisposable
     [InlineData(0)]
     [InlineData(-2)]
     [InlineData(-100)]
-    public void CourseMustHaveAtLeastOneHourLength(double invalidWorkload)
+    public void Course_InvalidWorkload_ShouldThrowArgumentException(double invalidWorkload)
     {
         Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithWorkload(invalidWorkload).Build()).WithMessage(Resource.InvalidWorkload);
     }
@@ -73,14 +73,14 @@ public class CourseTest : IDisposable
     [Theory]
     [InlineData(0)]
     [InlineData(-100)]
-    public void CourseMustNotHaveAPriceLowerThan1(double invalidPrice)
+    public void Course_PriceLowerThan1_ShouldThrowArgumentException(double invalidPrice)
     {
         Action action = () => CourseBuilder.New().WithPrice(invalidPrice).Build();
         action.Should().Throw<ArgumentException>().WithMessage(Resource.InvalidPrice);
     }
 
     [Fact]
-    public void MustChangeCourseName()
+    public void ChangeName_ShouldUpdateCourseName()
     {
         var expectedName = _faker.Name.ToString();
         var course = CourseBuilder.New().Build();
@@ -93,14 +93,14 @@ public class CourseTest : IDisposable
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public void CourseMustNotChangeWithAnInvalidName(string invalidName)
+    public void ChangeName_InvalidName_ShouldThrowArgumentException(string invalidName)
     {
         Action action = () => CourseBuilder.New().Build().ChangeName(invalidName);
         action.Should().Throw<ArgumentException>();
     }
     
     [Fact]
-    public void MustChangeCourseWorkload()
+    public void ChangeWorkload_ShouldUpdateCourseWorkload()
     {
         var expectedWorkload = 55;
         var course = CourseBuilder.New().Build();
@@ -114,14 +114,14 @@ public class CourseTest : IDisposable
     [InlineData(0)]
     [InlineData(-2)]
     [InlineData(-100)]
-    public void CourseMustNotChangeWithAnInvalidWorkload(double invalidWorkload)
+    public void ChangeWorkload_InvalidWorkload_ShouldThrowArgumentException(double invalidWorkload)
     {
         Action action = () => CourseBuilder.New().Build().ChangeWorkload(invalidWorkload);
         action.Should().Throw<ArgumentException>();
     }
 
     [Fact]
-    public void MustChangeCoursePrice()
+    public void ChangePrice_ShouldUpdateCoursePrice()
     {
         var expectedPrice = 1599;
         var course = CourseBuilder.New().Build();
@@ -134,7 +134,7 @@ public class CourseTest : IDisposable
     [Theory]
     [InlineData(0)]
     [InlineData(-100)]
-    public void CourseMustNotChangeWithAnInvalidPrice(double invalidPrice)
+    public void ChangePrice_InvalidPrice_ShouldThrowArgumentException(double invalidPrice)
     {
         Action action = () => CourseBuilder.New().Build().ChangePrice(invalidPrice);
         action.Should().Throw<ArgumentException>();
