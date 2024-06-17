@@ -47,6 +47,29 @@ namespace CoursePlatform.Data.Migrations
 
                     b.ToTable("course");
                 });
+
+            modelBuilder.Entity("CoursePlataform.Domain.Students.Student", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Cpf")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TargetAudience")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("student");
+                });
 #pragma warning restore 612, 618
         }
     }
