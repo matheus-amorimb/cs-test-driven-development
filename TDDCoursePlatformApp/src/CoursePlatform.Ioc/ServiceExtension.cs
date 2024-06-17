@@ -1,3 +1,4 @@
+using CoursePlataform.Domain.Students;
 using CoursePlataform.DomainTest.Courses;
 using CoursePlatform.Data.Context;
 using CoursePlatform.Data.Repositories.Implementations;
@@ -21,6 +22,7 @@ public static class ServiceExtension
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<CourseStorage>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IStudentRepository, StudentRepository>();
         
         return services;
     }  
