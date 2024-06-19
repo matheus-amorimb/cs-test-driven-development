@@ -72,28 +72,28 @@ public class CourseStoreTest
     }
 
     [Fact]
-    public void Update_CourseSuccessfully()
+    public async void Update_CourseSuccessfully()
     {
         var course = CourseBuilder.New().Build();
         var id = Guid.NewGuid();
         _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
 
-        _courseStorage.Update(id, _courseDto);
+        await _courseStorage.Update(id, _courseDto);
         
         course.Name.Should().Be(_courseDto.Name);
         course.Price.Should().Be(_courseDto.Price);
         course.Workload.Should().Be(_courseDto.Workload);
     }    
     
-    // [Fact]
-    // public void Update_NonexistentCourseId_ThrowsArgumentException()
-    // {
-    //     Course course = null;
-    //     var id = Guid.NewGuid();
-    //     _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
-    //     
-    //     Action action = () => _courseStorage.Update(id, _courseDto);
-    //     action.Should().Throw<ArgumentException>();
-    // }
+    [Fact]
+    public async void Update_NonexistentCourseId_ThrowsArgumentException()
+    {
+        Course course = null;
+        var id = Guid.NewGuid();
+        _courseRepositoryMock.Setup(r => r.GetById(id)).ReturnsAsync(course);
+     
+        Func<Task> action = async () => await _courseStorage.Update(id, _courseDto);
+        await action.Should().ThrowAsync<ArgumentException>();
+    }
     
 }
