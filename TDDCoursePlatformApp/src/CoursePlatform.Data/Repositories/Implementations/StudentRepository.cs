@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoursePlatform.Data.Repositories.Implementations;
 
-public class StudentRepository : Repository<Student>, IStudentRepository
+public class StudentRepository : IRepository<Student>, IStudentRepository
 {
     public StudentRepository(AppDbContext context) : base(context)
     {

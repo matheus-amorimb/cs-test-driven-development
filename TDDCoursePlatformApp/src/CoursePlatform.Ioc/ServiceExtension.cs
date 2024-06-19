@@ -18,9 +18,10 @@ public static class ServiceExtension
             var postgresConnection = configuration.GetConnectionString("DefaultConnection"); 
             builder.UseNpgsql(postgresConnection);
         });
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped(typeof(Data.Repositories.Interfaces.IRepository<>), typeof(Data.Repositories.Implementations.IRepository<>));
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<CourseStorage>();
+        services.AddScoped<StudentStorage>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IStudentRepository, StudentRepository>();
         
