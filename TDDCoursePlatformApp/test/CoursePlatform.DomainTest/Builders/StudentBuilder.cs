@@ -10,7 +10,7 @@ public class StudentBuilder
     private Student _student;
     private string _name = "Peter";
     private string _cpf = "14863";
-    private string _email = "email@email.cpm";
+    private string _email = "email@email.com";
     private TargetAudience _targetAudience = TargetAudience.Student;
     
     public static StudentBuilder New()

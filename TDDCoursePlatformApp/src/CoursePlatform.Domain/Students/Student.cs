@@ -48,4 +48,8 @@ public class Student : Entity
     {
         Name = CheckName(newName);
     }
+    public void ChangeEmail(string newEmail)
+    {
+        Email = CheckEmail(newEmail);
+    }
 }
