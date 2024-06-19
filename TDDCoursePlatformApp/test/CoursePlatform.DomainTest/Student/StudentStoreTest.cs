@@ -2,6 +2,8 @@ using Bogus;
 using Bogus.Extensions.Brazil;
 using CoursePlataform.Domain.Courses;
 using CoursePlataform.Domain.Students;
+using CoursePlataform.DomainTest.Builders;
+using FluentAssertions;
 using Moq;
 
 namespace CoursePlataform.DomainTest.Courses;
@@ -26,7 +28,7 @@ public class StudentStoreTest
     }
 
     [Fact]
-    public void MustStoreNewStudent()
+    public void Add_StudentSuccessfully()
     {
         _studentStorage.Add(_studentDto);
         _studentRepositoryMock.Verify(
@@ -36,8 +38,39 @@ public class StudentStoreTest
     }
 
     [Fact]
-    public void MustNotAddStudentWIthCpfAlreadyInUse()
+    public async Task Add_DuplicateStudentCpf_ThrowsArgumentException()
     {
-        
+        var studentAlreadySaved = StudentBuilder.New().WithCpf(_studentDto.Cpf).Build();
+        _studentRepositoryMock.Setup(repository => repository.GetByCpf(_studentDto.Cpf)).ReturnsAsync(studentAlreadySaved);
+
+        Func<Task> action = async () => await _studentStorage.Add(_studentDto);
+
+        await action.Should().ThrowAsync<ArgumentException>();
     }
+
+    [Fact]
+    public async Task Update_StudentSuccessfully()
+    {
+        var studentToUpdate = StudentBuilder.New().WithCpf(_studentDto.Cpf).Build();
+        _studentRepositoryMock.Setup(repository => repository.GetByCpf(_studentDto.Cpf)).ReturnsAsync(studentToUpdate);
+        
+        await _studentStorage.Update(_studentDto);
+
+        studentToUpdate.Name.Should().Be(_studentDto.Name);
+        studentToUpdate.Email.Should().Be(_studentDto.Email);
+
+    }
+
+    [Fact]
+    public async Task Update_StudentInvalidCpf_ThrowsArgumentException()
+    {
+        Student student = null;
+        _studentRepositoryMock.Setup(r => r.GetByCpf(_studentDto.Cpf)).ReturnsAsync(student);
+
+        Func<Task> action = async () => await _studentStorage.Update(_studentDto);
+
+        await action.Should().ThrowAsync<ArgumentException>();
+
+    }
+    
 }

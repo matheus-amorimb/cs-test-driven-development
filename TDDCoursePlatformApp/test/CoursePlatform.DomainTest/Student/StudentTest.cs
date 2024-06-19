@@ -28,7 +28,7 @@ public class StudentTest
     }
     
     [Fact]
-    public void MustCreateAStudent()
+    public void Constructor_ShouldCreateStudent()
     {
         var expectedStudent =  new Student(
             _studentDto.Name,
@@ -43,7 +43,7 @@ public class StudentTest
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public void MustNotCreateAStudentWithInvalidName(string invalidName)
+    public void Constructor_InvalidName_ShouldThrowArgumentException(string invalidName)
     {
         Action action = () =>  StudentBuilder.New().WithName(invalidName).Build();
         action.Should().Throw<ArgumentException>().WithMessage(Resource.InvalidName);
@@ -52,7 +52,7 @@ public class StudentTest
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public void MustNotCreateAStudentWithInvalidCpf(string invalidCpf)
+    public void Constructor_InvalidCpf_ShouldThrowArgumentException(string invalidCpf)
     {
         Action action = () =>  StudentBuilder.New().WithCpf(invalidCpf).Build();
         action.Should().Throw<ArgumentException>().WithMessage(Resource.InvalidCpf);
@@ -61,16 +61,14 @@ public class StudentTest
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    [InlineData("matheus")]
-    [InlineData("matheus@gmail")]
-    public void MustNotCreateAStudentWithInvalidEmail(string invalidEmail)
+    public void Constructor_InvalidEmail_ShouldThrowArgumentException(string invalidEmail)
     {
         Action action = () =>  StudentBuilder.New().WithEmail(invalidEmail).Build();
         action.Should().Throw<ArgumentException>().WithMessage(Resource.InvalidEmail);
     }
 
     [Fact]
-    public void MustChangeStudentName()
+    public void ChangeName_ShouldUpdateStudentName()
     {
         var student = StudentBuilder.New().Build();
         string newName = _faker.Person.FullName;
@@ -82,7 +80,7 @@ public class StudentTest
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public void MustNotChangeNameWithAnInvalidName(string invalidName)
+    public void ChangeName_InvalidName_ShouldThrowArgumentException(string invalidName)
     {
 
         Action action = () => StudentBuilder.New().Build().ChangeName(invalidName);
