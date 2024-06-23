@@ -32,9 +32,9 @@ public class EnrollmentBuilder
         return this;
     }
 
-    public Enrollment.Enrollment Build()
+    public Domain.Enrollments.Enrollment Build()
     {
-        return new Enrollment.Enrollment(_student, _course, _pricePayed);
+        return new Domain.Enrollments.Enrollment(_student, _course, _pricePayed);
     }
     
 }

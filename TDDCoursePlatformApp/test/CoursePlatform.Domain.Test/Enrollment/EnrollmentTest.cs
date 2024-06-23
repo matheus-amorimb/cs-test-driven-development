@@ -17,9 +17,9 @@ public class EnrollmentTest
             PricePayed = 1000
         };
         
-        var enrollment = new Enrollment(expectedEnrollment.Student, expectedEnrollment.Course, expectedEnrollment.PricePayed);
+        var enrollment = new Domain.Enrollments.Enrollment(expectedEnrollment.Student, expectedEnrollment.Course, expectedEnrollment.PricePayed);
 
-        expectedEnrollment.Should().BeEquivalentTo(enrollment);
+        expectedEnrollment.Should().BeEquivalentTo(enrollment, options => options.ExcludingMissingMembers());
     }
 
     [Fact]
@@ -64,39 +64,6 @@ public class EnrollmentTest
         decimal pricePayed = (decimal)(0.9 * coursePrice);
         var enrollment = EnrollmentBuilder.New().WithCourse(course).WithPricePayed(pricePayed).Build();
         enrollment.HasDiscount.Should().Be(true);
-    }
-    
-}
-
-public class Enrollment
-{
-    public Student Student { get; private set; } 
-    public Course Course { get; private set; } 
-    public decimal PricePayed { get; private set; }
-    public bool HasDiscount { get; private set; } = false;
-    
-    public Enrollment(Student student, Course course, decimal pricePayed)
-    {
-        SetStudent(student);
-        SetCourse(course);
-        SetPricePayed(pricePayed);
-    }
-
-    private void SetPricePayed(decimal pricePayed)
-    {
-        if (pricePayed < 0) throw new ArgumentException();
-        if (pricePayed > (decimal)Course.Price) throw new ArgumentException();
-        if (pricePayed < (decimal)Course.Price) HasDiscount = true;
-        PricePayed = pricePayed;
-    }
-
-    private void SetStudent(Student student)
-    {
-        Student = student ?? throw new ArgumentException();
-    }    
-    private void SetCourse(Course course)
-    {
-        Course = course ?? throw new ArgumentException();
     }
     
 }
