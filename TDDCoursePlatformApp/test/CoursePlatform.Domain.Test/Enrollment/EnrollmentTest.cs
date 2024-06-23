@@ -74,5 +74,35 @@ public class EnrollmentTest
         Action action = () => EnrollmentBuilder.New().WithStudent(student).WithCourse(course).Build();
         action.Should().Throw<ArgumentException>();
     }
+
+    [Fact]
+    public void Insert_StudentGrade_Successfully()
+    {
+        const double expectedGrade = 9.8;
+        var enrollment = EnrollmentBuilder.New().Build();
+        enrollment.SetGrade(expectedGrade);
+
+        enrollment.Grade.Should().Be(expectedGrade);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(11)]
+    public void Insert_GradeLowerThanZeroOrGreaterThanTen_ThrowsAnException(double grade)
+    {
+        var enrollment = EnrollmentBuilder.New().Build();
+        Action action = () => enrollment.SetGrade(grade);
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void InsertGrade_EnrollmentPropertyCompleted_True()
+    {
+        var enrollment = EnrollmentBuilder.New().Build();
+        var grade = 10;
+        enrollment.SetGrade(grade);
+        enrollment.Completed.Should().Be(true);
+    }
+    
     
 }

@@ -31,7 +31,7 @@ public class EnrollmentBuilder
         _pricePayed = price;
         return this;
     }
-
+    
     public Domain.Enrollments.Enrollment Build()
     {
         return new Domain.Enrollments.Enrollment(_student, _course, _pricePayed);

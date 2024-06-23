@@ -10,7 +10,9 @@ public class Enrollment : Entity
     public Course Course { get; private set; } 
     public decimal PricePayed { get; private set; }
     public bool HasDiscount { get; private set; } = false;
-    
+    public double Grade { get; private set; }
+    public bool Completed { get; private set; } = false;
+
     public Enrollment(Student student, Course course, decimal pricePayed)
     {
         SetStudent(student);
@@ -40,5 +42,10 @@ public class Enrollment : Entity
     {
         Course = course ?? throw new ArgumentException();
     }
-    
+
+    public void SetGrade(double grade)
+    {
+        Grade =  grade is < 0 or > 10 ? throw new ArgumentException() : grade;
+        Completed = true;
+    }
 }
