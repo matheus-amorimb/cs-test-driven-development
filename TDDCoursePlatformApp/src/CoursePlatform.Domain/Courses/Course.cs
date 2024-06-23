@@ -12,6 +12,7 @@ public class Course : Entity
     public TargetAudience TargetAudience { get; private set; }
     public double Price { get; private set; }
     public string? Description { get; private set; }
+    
     public Course(string? name, double workload, TargetAudience targetAudience, double price, string? description)
     {
         Name = CheckName(name);

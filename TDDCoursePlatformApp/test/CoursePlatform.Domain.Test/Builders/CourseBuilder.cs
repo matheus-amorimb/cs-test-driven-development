@@ -10,7 +10,7 @@ public class CourseBuilder
     private TargetAudience _targetAudience = TargetAudience.Employee;
     private double  _price = 1299;
     private string?  _description = "How to create a Web Api using Clean Architecture";
-    private Guid _id;
+    private Guid _id = Guid.NewGuid();
 
     public static CourseBuilder New()
     {

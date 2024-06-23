@@ -14,7 +14,7 @@ public class Student : Entity
     public string? Cpf { get; private set; }
     public string? Email { get; private set; }
     public TargetAudience TargetAudience { get; private set; }
-
+    
     public Student(string name, string cpf, string email, TargetAudience targetAudience)
     {
         Name = CheckName(name);

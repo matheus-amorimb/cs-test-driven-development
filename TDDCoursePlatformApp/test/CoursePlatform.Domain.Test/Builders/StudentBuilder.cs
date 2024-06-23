@@ -11,7 +11,7 @@ public class StudentBuilder
     private string _name = "Peter";
     private string _cpf = "14863";
     private string _email = "email@email.com";
-    private TargetAudience _targetAudience = TargetAudience.Student;
+    private TargetAudience _targetAudience = TargetAudience.Employee;
     
     public static StudentBuilder New()
     {
@@ -37,6 +37,11 @@ public class StudentBuilder
     public StudentBuilder WithEmail(string email)
     {
         _email = email;
+        return this;
+    }    
+    public StudentBuilder WithTargetAudience(TargetAudience audience)
+    {
+        _targetAudience = audience;
         return this;
     }
 }
