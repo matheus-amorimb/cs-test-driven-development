@@ -65,5 +65,14 @@ public class EnrollmentTest
         var enrollment = EnrollmentBuilder.New().WithCourse(course).WithPricePayed(pricePayed).Build();
         enrollment.HasDiscount.Should().Be(true);
     }
+
+    [Fact]
+    public void Create_EnrollmentWithTargetAudienceDifferentForCourseAndStudent_ThrowsAnException()
+    {
+        var course = CourseBuilder.New().WithTargetAudience(TargetAudience.Employee).Build();
+        var student = StudentBuilder.New().WithTargetAudience(TargetAudience.Student).Build();
+        Action action = () => EnrollmentBuilder.New().WithStudent(student).WithCourse(course).Build();
+        action.Should().Throw<ArgumentException>();
+    }
     
 }

@@ -1,9 +1,10 @@
+using CoursePlataform.Domain.Base;
 using CoursePlataform.Domain.Courses;
 using CoursePlataform.Domain.Students;
 
 namespace CoursePlataform.Domain.Enrollments;
 
-public class Enrollment
+public class Enrollment : Entity
 {
     public Student Student { get; private set; } 
     public Course Course { get; private set; } 
@@ -15,6 +16,12 @@ public class Enrollment
         SetStudent(student);
         SetCourse(course);
         SetPricePayed(pricePayed);
+        CheckStudentAndCourseHasSameTargetAudience();
+    }
+
+    private void CheckStudentAndCourseHasSameTargetAudience()
+    {
+        if (Student.TargetAudience != Course.TargetAudience) throw new ArgumentException();
     }
 
     private void SetPricePayed(decimal pricePayed)

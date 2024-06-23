@@ -5,8 +5,8 @@ namespace CoursePlataform.DomainTest.Builders;
 
 public class EnrollmentBuilder
 {
-    private Student _student = StudentBuilder.New().Build();
-    private Course _course = CourseBuilder.New().Build();
+    private Student _student = StudentBuilder.New().WithTargetAudience(TargetAudience.Employee).Build();
+    private Course _course = CourseBuilder.New().WithTargetAudience(TargetAudience.Employee).Build();
     private decimal _pricePayed = 1000m;
 
     public static EnrollmentBuilder New()
